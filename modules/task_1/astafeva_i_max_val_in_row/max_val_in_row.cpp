@@ -4,6 +4,7 @@
 #include <random>
 #include <ctime>
 #include <algorithm>
+#include <vector>
 #include "../../../modules/task_1/astafeva_i_max_val_in_row/max_val_in_row.h"
 
 std::vector<int> getRandomMatrix(int rows, int columns) {
