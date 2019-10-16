@@ -1,19 +1,21 @@
 // Copyright 2019 Astafeva Irina
 
 #include <mpi.h>
+#include <random>
 #include <ctime>
 #include <algorithm>
-#include "astafeva_i_max_val_in_row.h"
+#include "../../../modules/task_1/astafeva_i_max_val_in_row/max_val_in_row.h"
 
 std::vector<int> getRandomMatrix(int rows, int columns) {
     if ((rows < 0) || (columns < 0)) throw - 1;
-    srand(time(NULL));
+    std::mt19937 gen;
+    gen.seed(static_cast<unsigned int>(time(0)));
     const size_t r = rows;
     const size_t c = columns;
     const size_t size = r * c;
     std::vector<int> matrix(size);
     for (size_t i = 0; i < size; i++) {
-        matrix[i] = rand() % 101;
+        matrix[i] = gen() % 101;
     }
     return matrix;
 }
@@ -51,8 +53,7 @@ std::vector<int> getMaxInRowsPar(const std::vector<int> matrix, int rows, int co
                 MPI_Send(&matrix[start_row * columns], (delta_rows + 1) * columns, MPI_INT, proc, 0, MPI_COMM_WORLD);
                 start_row += delta_rows;
                 start_row++;
-            }
-            else {
+            } else {
                 MPI_Send(&matrix[start_row * columns], delta_rows * columns, MPI_INT, proc, 0, MPI_COMM_WORLD);
                 start_row += delta_rows;
             }
@@ -64,18 +65,15 @@ std::vector<int> getMaxInRowsPar(const std::vector<int> matrix, int rows, int co
     if (rank == 0) {
         if (rem_rows != 0) {
             local_rows = delta_rows + 1;
-        }
-        else {
+        } else {
             local_rows = delta_rows;
         }
         local.resize(local_rows * columns);
         local = std::vector<int>(&matrix[0], &matrix[0] + local_rows * columns);
-    }
-    else {
+    } else {
         if (rank < rem_rows) {
             local_rows = delta_rows + 1;
-        }
-        else {
+        } else {
             local_rows = delta_rows;
         }
         local.resize(local_rows * columns);

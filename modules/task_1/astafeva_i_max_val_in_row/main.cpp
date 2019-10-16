@@ -1,8 +1,9 @@
 // Copyright 2019 Astafeva Irina
 
-#include <gtest-mpi-listener.hpp> 
-#include <gtest/gtest.h> 
-#include "astafeva_i_max_val_in_row.h" 
+#include <gtest-mpi-listener.hpp>
+#include <gtest/gtest.h>
+#include <vector>
+#include "../../../modules/task_1/astafeva_i_max_val_in_row/max_val_in_row.h"
 
 TEST(Get_Random_Matrix, Cant_Create_Matrix_With_Negative_Parametrs) {
     ASSERT_ANY_THROW(std::vector<int> matrix = getRandomMatrix(-2, 10));
