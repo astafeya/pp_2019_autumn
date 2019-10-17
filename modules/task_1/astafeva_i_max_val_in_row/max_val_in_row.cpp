@@ -102,12 +102,13 @@ std::vector<int> getMaxInRowsPar(const std::vector<int> matrix, int rows, int co
         if (rank < s) {
             MPI_Status status;
             MPI_Recv(&local[0], local_rows * columns, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
-		}
+        }
     }
 
     std::vector<int> global_result(rows);
     std::vector<int> local_result = getMaxInRows(local, local_rows, columns);
 
-    MPI_Gatherv(&local_result[0], local_rows, MPI_INT, &global_result[0], &recvcounts[0], &displs[0], MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Gatherv(&local_result[0], local_rows, MPI_INT, &global_result[0], 
+        &recvcounts[0], &displs[0], MPI_INT, 0, MPI_COMM_WORLD);
     return global_result;
 }
