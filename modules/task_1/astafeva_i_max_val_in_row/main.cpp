@@ -14,32 +14,64 @@ TEST(Get_Max_In_Rows_Par, Rows_Aliquot_Size) {
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
-    int rows = 2 * size;
+    int rows = size;
     int columns = 5;
+    std::vector<int> matrix(rows*columns);
+    std::vector<int> result2(rows);
 
-    std::vector<int> matrix = getRandomMatrix(rows, columns);
-
+    if (rank == 0) {
+    matrix = getRandomMatrix(rows, columns);
+    result2 = getMaxInRows(matrix, rows, columns);
+    }
     std::vector<int> result1 = getMaxInRowsPar(matrix, rows, columns);
 
     if (rank == 0) {
-        std::vector<int> result2 = getMaxInRows(matrix, rows, columns);
         ASSERT_EQ(result1, result2);
     }
 }
 
-TEST(Get_Max_In_Rows_Par, Rows_Not_Aliquot_Size) {
+TEST(Get_Max_In_Rows_Par, Rows_More_Than_Size) {
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
-    int rows = 2 * size + size / 2;
-    int columns = 5;
+    int rows = size + 5;
+    int columns = 6;
+    std::vector<int> matrix(rows*columns);
+    std::vector<int> result2(rows);
 
-    std::vector<int> matrix = getRandomMatrix(rows, columns);
+    if (rank == 0) {
+    matrix = getRandomMatrix(rows, columns);
+    result2 = getMaxInRows(matrix, rows, columns);
+    }
+    std::vector<int> result1 = getMaxInRowsPar(matrix, rows, columns);
+
+    if (rank == 0) {
+        ASSERT_EQ(result1, result2);
+    }
+}
+
+TEST(Get_Max_In_Rows_Par, Rows_Less_Than_Size) {
+    int rank, size;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    int rows;
+    if (size > 2) {
+        rows = size - 2;
+    } else {
+        rows = size;
+    }
+    int columns = 6;
+    std::vector<int> matrix(rows*columns);
+    std::vector<int> result2(rows);
+
+    if (rank == 0) {
+    matrix = getRandomMatrix(rows, columns);
+    result2 = getMaxInRows(matrix, rows, columns);
+    }
 
     std::vector<int> result1 = getMaxInRowsPar(matrix, rows, columns);
 
     if (rank == 0) {
-        std::vector<int> result2 = getMaxInRows(matrix, rows, columns);
         ASSERT_EQ(result1, result2);
     }
 }
