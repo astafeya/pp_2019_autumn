@@ -75,7 +75,7 @@ std::vector<int> getMaxInRowsPar(const std::vector<int> matrix, int rows, int co
             }
         }
         if (s != size) {
-            for (int proc = s; s < size; s++) {
+            for (int proc = s; proc < size; proc++) {
                 recvcounts[proc] = 0;
                 displs[proc] = start_row - 1;
             }
