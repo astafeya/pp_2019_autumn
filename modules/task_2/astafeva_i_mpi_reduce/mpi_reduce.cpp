@@ -7,6 +7,7 @@
 int MPI_Reduce_User(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op,
     int root, MPI_Comm comm) {
     if (count < 0) return MPI_ERR_COUNT;
+
     if (sendbuf == nullptr || recvbuf == nullptr) return MPI_ERR_BUFFER;
 
     int size;
