@@ -152,6 +152,6 @@ int MPI_Reduce_User(const void *sendbuf, void *recvbuf, int count, MPI_Datatype 
         MPI_Status status;
         MPI_Recv(recvbuf, count, datatype, 0, 0, comm, &status);
     }
-	
+
     return MPI_SUCCESS;
 }

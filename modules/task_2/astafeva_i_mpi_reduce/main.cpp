@@ -33,8 +33,8 @@ TEST(MPI_Reduce_User, No_Throw_With_Normal_Parameters_To_Double) {
     int bufsize = 10;
     std::vector<double> sendbuf(bufsize);
     std::vector<double> recvbuf(bufsize);
-    std::mt19937 gen(time(0)); 
-    std::uniform_real_distribution<> urd(0, 100); 
+    std::mt19937 gen(time(0));
+    std::uniform_real_distribution<> urd(0, 100);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
@@ -53,8 +53,8 @@ TEST(MPI_Reduce_User, No_Throw_With_Normal_Parameters_To_Float) {
     int bufsize = 10;
     std::vector<float> sendbuf(bufsize);
     std::vector<float> recvbuf(bufsize);
-    std::mt19937 gen(time(0)); 
-    std::uniform_real_distribution<> urd(0, 100); 
+    std::mt19937 gen(time(0));
+    std::uniform_real_distribution<> urd(0, 100);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
