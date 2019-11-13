@@ -2,6 +2,7 @@
 
 #include <mpi.h>
 #include <vector>
+#include <cstring>
 #include "../../../modules/task_2/astafeva_i_mpi_reduce/mpi_reduce.h"
 
 int MPI_Reduce_User(const void *sendbuf, void *recvbuf, int count, MPI_Datatype datatype, MPI_Op op,
@@ -46,97 +47,94 @@ int MPI_Reduce_User(const void *sendbuf, void *recvbuf, int count, MPI_Datatype 
                 if (datatype == MPI_INT) {
                     int * buf = new int[count];
                     MPI_Recv(buf, count, datatype, source, 0, comm, &status);
-                    switch (op) {
-                    case MPI_MAX:
+                    if (op == MPI_MAX) {
                         for (int i = 0; i < count; i++) {
                             if (buf[i] > static_cast<int*>(recvbuf)[i]) {
                                 static_cast<int*>(recvbuf)[i] = buf[i];
                             }
                         }
-                        break;
-                    case MPI_MIN:
-                        for (int i = 0; i < count; i++) {
-                            if (buf[i] < static_cast<int*>(recvbuf)[i]) {
-                                static_cast<int*>(recvbuf)[i] = buf[i];
+                    } else {
+                        if (op == MPI_MIN) {
+                            for (int i = 0; i < count; i++) {
+                                if (buf[i] < static_cast<int*>(recvbuf)[i]) {
+                                    static_cast<int*>(recvbuf)[i] = buf[i];
+                                }
+                            }
+                        } else {
+                            if (op == MPI_SUM) {
+                                for (int i = 0; i < count; i++) {
+                                    static_cast<int*>(recvbuf)[i] += buf[i];
+                                }
+                            } else {
+                                if (op == MPI_PROD) {
+                                    for (int i = 0; i < count; i++) {
+                                        static_cast<int*>(recvbuf)[i] *= buf[i];
+                                    }
+                                }
                             }
                         }
-                        break;
-                    case MPI_SUM:
-                        for (int i = 0; i < count; i++) {
-                            static_cast<int*>(recvbuf)[i] += buf[i];
-                        }
-                        break;
-                    case MPI_PROD:
-                        for (int i = 0; i < count; i++) {
-                            static_cast<int*>(recvbuf)[i] *= buf[i];
-                        }
-                        break;
-                    default:
-                    break;
                     }
                 } else {
                     if (datatype == MPI_DOUBLE) {
                         double * buf = new double[count];
                         MPI_Recv(buf, count, datatype, source, 0, comm, &status);
-                        switch (op) {
-                        case MPI_MAX:
+                        if (op == MPI_MAX) {
                             for (int i = 0; i < count; i++) {
                                 if (buf[i] > static_cast<double*>(recvbuf)[i]) {
                                     static_cast<double*>(recvbuf)[i] = buf[i];
                                 }
                             }
-                            break;
-                        case MPI_MIN:
-                            for (int i = 0; i < count; i++) {
-                                if (buf[i] < static_cast<double*>(recvbuf)[i]) {
-                                    static_cast<double*>(recvbuf)[i] = buf[i];
+                        } else {
+                            if (op == MPI_MIN) {
+                                for (int i = 0; i < count; i++) {
+                                    if (buf[i] < static_cast<double*>(recvbuf)[i]) {
+                                        static_cast<double*>(recvbuf)[i] = buf[i];
+                                    }
+                                }
+                            } else {
+                                if (op == MPI_SUM) {
+                                    for (int i = 0; i < count; i++) {
+                                        static_cast<double*>(recvbuf)[i] += buf[i];
+                                    }
+                                } else {
+                                    if (op == MPI_PROD) {
+                                        for (int i = 0; i < count; i++) {
+                                            static_cast<double*>(recvbuf)[i] *= buf[i];
+                                        }
+                                    }
                                 }
                             }
-                            break;
-                        case MPI_SUM:
-                            for (int i = 0; i < count; i++) {
-                                static_cast<double*>(recvbuf)[i] += buf[i];
-                            }
-                            break;
-                        case MPI_PROD:
-                            for (int i = 0; i < count; i++) {
-                                static_cast<double*>(recvbuf)[i] *= buf[i];
-                            }
-                            break;
-                        default:
-                            break;
                         }
                     } else {
                         if (datatype == MPI_FLOAT) {
                             float * buf = new float[count];
                             MPI_Recv(buf, count, datatype, source, 0, comm, &status);
-                            switch (op) {
-                            case MPI_MAX:
+                            if (op == MPI_MAX) {
                                 for (int i = 0; i < count; i++) {
                                     if (buf[i] > static_cast<float*>(recvbuf)[i]) {
                                         static_cast<float*>(recvbuf)[i] = buf[i];
                                     }
                                 }
-                                break;
-                            case MPI_MIN:
-                                for (int i = 0; i < count; i++) {
-                                    if (buf[i] < static_cast<float*>(recvbuf)[i]) {
-                                        static_cast<float*>(recvbuf)[i] = buf[i];
+                            } else {
+                                if (op == MPI_MIN) {
+                                    for (int i = 0; i < count; i++) {
+                                        if (buf[i] < static_cast<float*>(recvbuf)[i]) {
+                                            static_cast<float*>(recvbuf)[i] = buf[i];
+                                        }
+                                    }
+                                } else {
+                                    if (op == MPI_SUM) {
+                                        for (int i = 0; i < count; i++) {
+                                            static_cast<float*>(recvbuf)[i] += buf[i];
+                                        }
+                                    } else {
+                                        if (op == MPI_PROD) {
+                                            for (int i = 0; i < count; i++) {
+                                                static_cast<float*>(recvbuf)[i] *= buf[i];
+                                            }
+                                        }
                                     }
                                 }
-                                break;
-                            case MPI_SUM:
-                                for (int i = 0; i < count; i++) {
-                                    static_cast<float*>(recvbuf)[i] += buf[i];
-                                }
-                                break;
-                            case MPI_PROD:
-                                for (int i = 0; i < count; i++) {
-                                    static_cast<float*>(recvbuf)[i] *= buf[i];
-                                }
-                                break;
-                            default:
-                                break;
                             }
                         }
                     }
