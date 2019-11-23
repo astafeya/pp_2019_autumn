@@ -298,8 +298,7 @@ TEST(MPI_Reduce_User, Int_Max_Works_Right_With_Any_Root) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     if (size > 2) {
         root = size - 2;
-    }
-    else {
+    } else {
         root = 0;
     }
 
@@ -327,8 +326,7 @@ TEST(MPI_Reduce_User, Int_Min_Works_Right_With_Any_Root) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     if (size > 2) {
         root = size - 2;
-    }
-    else {
+    } else {
         root = 0;
     }
 
@@ -356,8 +354,7 @@ TEST(MPI_Reduce_User, Int_Sum_Works_Right_With_Any_Root) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     if (size > 2) {
         root = size - 2;
-    }
-    else {
+    } else {
         root = 0;
     }
 
@@ -385,8 +382,7 @@ TEST(MPI_Reduce_User, Int_Prod_Works_Right_With_Any_Root) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     if (size > 2) {
         root = size - 2;
-    }
-    else {
+    } else {
         root = 0;
     }
 
