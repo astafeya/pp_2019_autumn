@@ -25,7 +25,7 @@ TEST(Convex_Hull, build_Image_Convex_Hull_Right) {
 
     image[2][0] = 0; image[2][1] = 0; image[2][2] = 0; image[2][3] = 1; image[2][4] = 1;
     image[2][5] = 1; image[2][6] = 0; image[2][7] = 0; image[2][8] = 0; image[2][9] = 0;
-    
+
     image[3][0] = 0; image[3][1] = 0; image[3][2] = 0; image[3][3] = 0; image[3][4] = 1;
     image[3][5] = 1; image[3][6] = 0; image[3][7] = 0; image[3][8] = 0; image[3][9] = 0;
 
@@ -46,7 +46,7 @@ TEST(Convex_Hull, build_Image_Convex_Hull_Right) {
 
     image[9][0] = 0; image[9][1] = 0; image[9][2] = 0; image[9][3] = 0; image[9][4] = 0;
     image[9][5] = 0; image[9][6] = 0; image[9][7] = 0; image[9][8] = 0; image[9][9] = 0;
-    
+
     int ** check = new int*[height];
     for (int i = 0; i < height; i++) {
         check[i] = new int[width];
@@ -339,7 +339,7 @@ TEST(Convex_Hull, build_Image_Convex_Hull_Right_4) {
     check[9][5] = 0; check[9][6] = 0; check[9][7] = 0; check[9][8] = 0; check[9][9] = 0;
 
     int ** result = buildImageConvexHull(image, height, width);
-    
+
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             ASSERT_EQ(result[i][j], check[i][j]);
@@ -424,7 +424,7 @@ TEST(Convex_Hull, build_Image_Convex_Hull_Right_5) {
     check[9][5] = 1; check[9][6] = 1; check[9][7] = 0; check[9][8] = 0; check[9][9] = 1;
 
     int ** result = buildImageConvexHull(image, height, width);
-    
+
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             ASSERT_EQ(result[i][j], check[i][j]);

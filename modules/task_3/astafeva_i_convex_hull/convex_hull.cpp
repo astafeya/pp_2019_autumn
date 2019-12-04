@@ -7,9 +7,7 @@
 
 void printImage(int ** image, int height, int width) {
     for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++)
-        {
-            //char c = (image[i][j] == 1) ? '*' : '-';
+        for (int j = 0; j < width; j++) {
             std::cout << image[i][j] << " ";
         }
         std::cout << std::endl;
@@ -152,7 +150,7 @@ std::vector<int> combineComponentParts(int ** image, int height, int width, int 
     int size, rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
-    
+
     int ** graf = new int*[componentsNumber];
     for (int i = 0; i < componentsNumber; i++) {
         graf[i] = new int[componentsNumber];
@@ -292,7 +290,7 @@ int ** imageAND(int ** image1, int ** image2, int height, int width) {
     int start_height = (rank < rem_height) ? (rank * (delta_height + 1)) : (delta_height * rank + rem_height);
     int max_height = (rank < rem_height) ? (delta_height + 1) : delta_height;
     max_height += start_height;
-    
+
     int ** resultImage = new int*[height];
     for (int i = 0; i < height; i++) {
         resultImage[i] = new int[width];
@@ -380,8 +378,7 @@ int ** imageOR(int ** image1, int ** image2, int height, int width) {
 int ** buildConvexHull(int ** image, int height, int width, int op) {
     int i1, j1, i2, j2, i3, j3;
     int min_i, max_i, min_j, max_j;
-    switch (op)
-    {
+    switch (op) {
     case 1:
         i1 = 1;
         j1 = -1;
@@ -494,7 +491,9 @@ int ** buildConvexHull(int ** image, int height, int width, int op) {
         for (int i = 0 - min_i; i < height - max_i; i++) {
             for (int j = 0 - min_j; j < width - max_j; j++) {
                 if (resultImage[i][j] == 0) {
-                    if (resultImage[i + i1][j + j1] != 0 && resultImage[i + i2][j + j2] != 0 && resultImage[i + i3][j + j3] != 0) {
+                    if (resultImage[i + i1][j + j1] != 0 &&
+                        resultImage[i + i2][j + j2] != 0 &&
+                        resultImage[i + i3][j + j3] != 0) {
                         k++;
                         resultImage[i][j] = 1;
                     }
@@ -573,5 +572,5 @@ int ** buildImageConvexHull(int ** image, int height, int width) {
         int ** result = buildComponentConvexHull(getComponent(comp, height, width, component), height, width);
         resultImage = imageOR(resultImage, result, height, width);
     }
-	return resultImage;
+    return resultImage;
 }
