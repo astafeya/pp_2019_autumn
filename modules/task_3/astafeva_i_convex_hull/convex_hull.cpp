@@ -258,7 +258,8 @@ std::vector<int> combineComponentParts(int ** image, int height, int width, int 
                     components.push_back(image[h][w]);
                 } else {
                     bool flag = true;
-                    for (int i = 0; i < components.size(); i++) {
+                    int csize = components.size();
+                    for (int i = 0; i < csize; i++) {
                         if (components[i] == image[h][w]) {
                             flag = false;
                             break;
