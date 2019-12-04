@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
-#include "..\..\..\modules\task_3\astafeva_i_convex_hull\convex_hull.h"
+#include "../../../modules/task_3/astafeva_i_convex_hull/convex_hull.h"
 
 TEST(Convex_Hull, build_Image_Convex_Hull_Right) {
     int size, rank;

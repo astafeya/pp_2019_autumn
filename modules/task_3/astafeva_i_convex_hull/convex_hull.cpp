@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include "..\..\..\modules\task_3\astafeva_i_convex_hull\convex_hull.h"
+#include "../../../modules/task_3/astafeva_i_convex_hull/convex_hull.h"
 
 
 void printImage(int ** image, int height, int width) {
